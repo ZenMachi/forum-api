@@ -36,6 +36,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: create config/database/test.json
+        run: |
+          touch config/database/test.json
+          echo "${{ secrets.TEST_CONFIG_JSON }}" > config/database/test.json
       - name: npm install migrate and test
         run: |
           npm install
