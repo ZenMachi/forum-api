@@ -40,6 +40,9 @@ jobs:
         run: |
           touch config/database/test.json
           echo "${{ secrets.TEST_CONFIG_JSON }}" > config/database/test.json
+        shell: bash
+        env:
+          TEST_CONFIG_JSON: ${{ secrets.TEST_CONFIG_JSON }}
       - name: npm install migrate and test
         run: |
           npm install
