@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      # We define environment variables here that might be needed by the entrypoint script
+      # or by the application itself. The PGHOST is 'db' which is the service name
+      # for the postgres container.
+      - PGHOST=db
+      - PGUSER=zenmachi
+      - PGPASSWORD=183492765
+      - PGDATABASE=forumapi
+      - PGPORT=5432
+    networks:
+      - app-network
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: zenmachi
+      POSTGRES_PASSWORD: 183492765
+      POSTGRES_DB: forumapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
