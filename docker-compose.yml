@@ -16,6 +16,7 @@ services:
       - PGPORT=5432
     networks:
       - app-network
+    restart: unless-stopped
 
   db:
     image: postgres:17-alpine
@@ -29,6 +30,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
+    restart: unless-stopped
 
 volumes:
   postgres_data:
